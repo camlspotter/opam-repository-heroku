@@ -1,0 +1,48 @@
+diff -r f9f5fac8a771 configure
+--- a/configure	Tue Jun 04 00:49:46 2013 +0800
++++ b/configure	Tue Jun 04 00:52:51 2013 +0800
+@@ -25,6 +25,8 @@
+ 
+ stdlib=`ocamlc -where`
+ 
++LIBDIR=/app/vendor/gdbm/lib
++
+ hasgot() {
+   rm -f hasgot.c
+   (echo "#include <$2>"
+@@ -32,7 +34,7 @@
+    echo '  (void) dbm_open("foo", 0, 0);'
+    echo '  return 0;'
+    echo '}') > hasgot.c
+-  ${CC:-cc} -I$1 -o hasgot.exe hasgot.c $3 $4
++  ${CC:-cc} -I$1 -L$LIBDIR -o hasgot.exe hasgot.c $3 $4
+   res=$?
+   rm -f hasgot.c hasgot.exe
+   return $res
+@@ -48,13 +50,13 @@
+     if hasgot $dir ndbm.h; then
+       dbm_link=""
+     elif hasgot $dir ndbm.h -lndbm; then
+-      dbm_link="-lndbm"
++      dbm_link="-L$LIBDIR -lndbm"
+     elif hasgot $dir ndbm.h -ldb1; then
+-      dbm_link="-ldb1"
++      dbm_link="-L$LIBDIR -ldb1"
+     elif hasgot $dir ndbm.h -lgdbm; then
+-      dbm_link="-lgdbm"
++      dbm_link="-L$LIBDIR -lgdbm"
+     elif hasgot $dir ndbm.h -lgdbm_compat -lgdbm; then
+-      dbm_link="-lgdbm_compat -lgdbm"
++      dbm_link="-L$LIBDIR -lgdbm_compat -lgdbm"
+     fi
+     break
+   fi
+@@ -62,7 +64,7 @@
+     dbm_include=$dir
+     dbm_defines="-DDBM_USES_GDBM_NDBM"
+     if hasgot $dir gdbm-ndbm.h -lgdbm_compat -lgdbm; then
+-      dbm_link="-lgdbm_compat -lgdbm"
++      dbm_link="-L$LIBDIR -lgdbm_compat -lgdbm"
+     fi
+     break
+   fi
