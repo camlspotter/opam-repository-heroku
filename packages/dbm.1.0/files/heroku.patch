@@ -1,16 +1,17 @@
-diff -r d941a4b0a29f -r 61f13b08b662 configure
+diff -r d941a4b0a29f configure
 --- a/configure	Tue Jun 04 02:57:31 2013 +0800
-+++ b/configure	Tue Jun 04 02:58:38 2013 +0800
-@@ -25,6 +25,8 @@
++++ b/configure	Tue Jun 04 04:11:24 2013 +0800
+@@ -25,16 +25,20 @@
  
  stdlib=`ocamlc -where`
  
 +LIBDIR=/app/vendor/gdbm/lib
 +
  hasgot() {
++  echo "testing hasgot $1 $2 $3 $4"
    rm -f hasgot.c
    (echo "#include <$2>"
-@@ -32,7 +34,7 @@
+    echo 'int main() {'
     echo '  (void) dbm_open("foo", 0, 0);'
     echo '  return 0;'
     echo '}') > hasgot.c
@@ -18,8 +19,11 @@ diff -r d941a4b0a29f -r 61f13b08b662 configure
 +  ${CC:-cc} -L$LIBDIR -I$1 -o hasgot.exe hasgot.c $3 $4
    res=$?
    rm -f hasgot.c hasgot.exe
++  echo "tested hasgot $1 $2 $3 $4: $res"
    return $res
-@@ -42,19 +44,19 @@
+ }
+ 
+@@ -42,19 +46,19 @@
  dbm_link="not found"
  dbm_defines=""
  
@@ -44,7 +48,7 @@ diff -r d941a4b0a29f -r 61f13b08b662 configure
      fi
      break
    fi
-@@ -62,7 +64,7 @@
+@@ -62,7 +66,7 @@
      dbm_include=$dir
      dbm_defines="-DDBM_USES_GDBM_NDBM"
      if hasgot $dir gdbm-ndbm.h -lgdbm_compat -lgdbm; then
