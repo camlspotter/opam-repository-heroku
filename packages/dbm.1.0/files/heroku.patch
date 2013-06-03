@@ -1,6 +1,18 @@
+diff -r d941a4b0a29f Makefile.config
+--- a/Makefile.config	Tue Jun 04 02:57:31 2013 +0800
++++ b/Makefile.config	Tue Jun 04 04:42:12 2013 +0800
+@@ -1,4 +1,4 @@
+-OCAML_STDLIB=/usr/local/ocaml-3.12/lib/ocaml
+-DBM_INCLUDES=
+-DBM_LINK=-lgdbm_compat -lgdbm
+-DBM_DEFINES=-DDBM_USES_GDBM_NDBM
++OCAML_STDLIB=/home/jun/.share/prefix/lib/ocaml
++DBM_INCLUDES=-I/app/vendor/gdbm/include
++DBM_LINK=-L/app/vendor/gdbm/lib -lgdbm_compat -lgdbm
++DBM_DEFINES=
 diff -r d941a4b0a29f configure
 --- a/configure	Tue Jun 04 02:57:31 2013 +0800
-+++ b/configure	Tue Jun 04 04:16:33 2013 +0800
++++ b/configure	Tue Jun 04 04:42:12 2013 +0800
 @@ -25,52 +25,11 @@
  
  stdlib=`ocamlc -where`
@@ -54,7 +66,7 @@ diff -r d941a4b0a29f configure
 -fi
 +dbm_include=/app/vendor/gdbm/include
 +dbm_defines=
-+dbm_link=-L/app/vendor/gdbm/lib -lgdbm_compat -lgdbm
++dbm_link="-L/app/vendor/gdbm/lib -lgdbm_compat -lgdbm"
  
  echo "Configuration for the \"camldbm\" library:"
  echo "        headers found in ......... $dbm_include"
