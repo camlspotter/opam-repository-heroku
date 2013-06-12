@@ -1,0 +1,9 @@
+opam-version: "1"
+version: "4.00.1"
+src: "https://bitbucket.org/camlspotter/mutated_ocaml/get/custom.tar.bz2"
+patches: []
+make: [ "world" "world.opt" ]
+packages : [ "base-unix" "base-bigarray" "base-threads" ]
+env: [
+  [ CAML_LD_LIBRARY_PATH = "%{lib}%/stublibs" ]
+]
