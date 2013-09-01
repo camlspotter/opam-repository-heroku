@@ -1,7 +1,7 @@
 opam-version: "1"
 maintainer: "jun.furuse@gmail.com"
 
-build: [ ["pcre-config"] ]
+build: [ ["pcre-config" "--version"] ]
 
 homepage: "http://www.pcre.org/"
 authors: ["Philip Hazel" "Zoltan Herczeg"]
