@@ -8,10 +8,10 @@ build: [
 remove: [
   ["ocaml" "setup.ml" "-uninstall"]
 ]
+ocaml-version: [= "4.01.0"]
 depends: [
   "ocamlfind"
   "omake"
-  "spotlib" {>="2.0.0"}
-  "pcre-ocaml" 
+  "type_conv"
 ]
-ocaml-version: [>= "4.00.0"]
+
